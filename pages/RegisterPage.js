@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
-export default class TopicsPage extends Component {
+export default class RegisterPage extends Component {
   constructor(props) {
     super(props);
   }
@@ -9,7 +9,7 @@ export default class TopicsPage extends Component {
   render() {
     return (
         <View style={styles.mainContainer}>
-          <Text>Topics</Text>
+          <Text>Register</Text>
         </View>
     )
   }

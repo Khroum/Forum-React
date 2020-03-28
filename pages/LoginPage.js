@@ -2,6 +2,7 @@ import {Navigation} from "react-native-navigation";
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TextInput} from 'react-native';
 import {LoginBtn} from "../component/LoginBtn";
+import {RegisterBtn} from "../component/RegisterBtn";
 
 export default class LoginPage extends Component {
 
@@ -39,7 +40,7 @@ export default class LoginPage extends Component {
         <View style={styles.mainContainer}>
           <View style={styles.dataContainer}>
             <View style={styles.dataWindow}>
-              <Text style={styles.dataText}>Login:</Text>
+              <Text style={styles.dataText}>Username:</Text>
               <TextInput style={styles.inputData}/>
             </View>
             <View style={styles.dataWindow}>
@@ -49,6 +50,8 @@ export default class LoginPage extends Component {
           </View>
           <View style={styles.centered}>
             <LoginBtn onPress={() => this.goToScreen('TopicsPage')}/>
+            <RegisterBtn onPress={() => this.goToScreen('RegisterPage')}
+                         content={'Don\'t have an account? Register here!'}/>
           </View>
         </View>
     );
@@ -57,15 +60,15 @@ export default class LoginPage extends Component {
 
 const styles =StyleSheet.create({
   mainContainer: {
-    marginTop: 20,
+    marginTop: 30,
     margin: 10
   },
   dataContainer: {
     borderWidth: 1.5,
     borderColor: '#0E7DDF',
     borderRadius: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 15
+    paddingVertical: 20,
+    paddingHorizontal: 10
   },
   centered: {
     display: 'flex',

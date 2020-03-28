@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     minWidth: 150
   },
   btnText: {
-    fontSize: 22,
+    fontSize: 24,
     padding: 5,
     alignSelf: 'center',
     color: 'white'
