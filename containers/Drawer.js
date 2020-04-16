@@ -1,35 +1,21 @@
 import React, {Component} from 'react';
-import {Text, View} from 'react-native';
-import {Navigation} from "react-native-navigation";
+import {Text, View, TouchableOpacity} from 'react-native';
+import {goToScreen, hideNavbarMenu} from "../utils/navbarHelper";
 
 export default class Drawer extends Component {
 
   goToScreen = (screenName) => {
-    Navigation.mergeOptions('drawerId', {
-      sideMenu: {
-        left: {
-          visible: false
-        }
-      }
-    });
-    Navigation.push('MAIN_STACK', {
-      component: {
-        name: screenName,
-        options: {
-          topBar: {
-            title: {
-              text: screenName
-            }
-          }
-        }
-      }
-    })
+    hideNavbarMenu('drawerId');
+    goToScreen('MAIN_STACK', screenName);
   };
 
   render() {
     return (
       <View>
         <Text>Drawer</Text>
+        <TouchableOpacity onPress={() => this.goToScreen('TopicsPage')}>
+          <Text>Topics</Text>
+        </TouchableOpacity>
       </View>
     );
   }

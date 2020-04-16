@@ -1,11 +1,11 @@
 import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import React from "react";
 
-export const LoginBtn = ({onPress}) => {
+export const ConfirmBtn = ({onPress, content}) => {
   return (
       <View style={styles.btnContainer}>
         <TouchableOpacity onPress={onPress}>
-          <Text style={styles.btnText}>Login</Text>
+          <Text style={styles.btnText}>{content}</Text>
         </TouchableOpacity>
       </View>
   )

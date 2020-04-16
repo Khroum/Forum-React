@@ -1,8 +1,9 @@
-import {Navigation} from "react-native-navigation";
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TextInput} from 'react-native';
-import {LoginBtn} from "../component/LoginBtn";
-import {RegisterBtn} from "../component/RegisterBtn";
+import {ConfirmBtn} from "../component/ConfirmBtn";
+import {TransparentGoToBtn} from "../component/TransparentGoToBtn";
+import {API_URL, AUTH_HEADER} from "../utils/constants";
+import {disableNavbarMenu, goToScreen} from "../utils/navbarHelper";
 
 export default class LoginPage extends Component {
 
@@ -11,28 +12,29 @@ export default class LoginPage extends Component {
   }
 
   componentDidMount() {
-    Navigation.mergeOptions(this.props.componentId, {
-      sideMenu: {
-        left: {
-          enabled: false
-        }
-      }
-    });
+    disableNavbarMenu(this.props.componentId);
   }
 
-  goToScreen = screenName => {
-    Navigation.push(this.props.componentId, {
-      component: {
-        name: screenName,
-        options: {
-          topBar: {
-            title: {
-              text: screenName
-            }
-          }
-        }
-      }
+  login = (username, password) => {
+    fetch(`${API_URL}/login`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password
+      }),
     })
+      .then((response) => {
+        let header = response.headers.get(AUTH_HEADER);
+        console.log(header);
+        goToScreen(this.props.componentId, 'TopicsPage')
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   render() {
@@ -49,9 +51,10 @@ export default class LoginPage extends Component {
             </View>
           </View>
           <View style={styles.centered}>
-            <LoginBtn onPress={() => this.goToScreen('TopicsPage')}/>
-            <RegisterBtn onPress={() => this.goToScreen('RegisterPage')}
-                         content={'Don\'t have an account? Register here!'}/>
+            <ConfirmBtn onPress={() => this.login('TopicsPage')}
+                        content={'Login'}/>
+            <TransparentGoToBtn onPress={() => goToScreen(this.props.componentId, 'RegisterPage')}
+                                content={'Don\'t have an account?\nRegister here!'}/>
           </View>
         </View>
     );
