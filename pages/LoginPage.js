@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TextInput} from 'react-native';
 import {ConfirmBtn} from "../component/ConfirmBtn";
-import {TransparentGoToBtn} from "../component/TransparentGoToBtn";
+import {GoToBtn} from "../component/GoToBtn";
 import {API_URL, AUTH_HEADER} from "../utils/constants";
 import {disableNavbarMenu, goToScreen} from "../utils/navbarHelper";
 
@@ -53,8 +53,8 @@ export default class LoginPage extends Component {
           <View style={styles.centered}>
             <ConfirmBtn onPress={() => this.login('TopicsPage')}
                         content={'Login'}/>
-            <TransparentGoToBtn onPress={() => goToScreen(this.props.componentId, 'RegisterPage')}
-                                content={'Don\'t have an account?\nRegister here!'}/>
+            <GoToBtn onPress={() => goToScreen(this.props.componentId, 'RegisterPage')}
+                     content={'Don\'t have an account?\nRegister here!'}/>
           </View>
         </View>
     );

@@ -1,11 +1,11 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
-export const TransparentGoToBtn = ({onPress, content}) => {
+export const GoToBtn = ({onPress, content, style}) => {
   return (
       <View style={styles.mainContainer}>
         <TouchableOpacity onPress={onPress} >
-          <Text style={styles.btnText}>{content}</Text>
+          <Text style={[styles.btnText, style]}>{content}</Text>
         </TouchableOpacity>
       </View>
   )
@@ -14,7 +14,6 @@ export const TransparentGoToBtn = ({onPress, content}) => {
 const styles = StyleSheet.create({
   mainContainer: {
     margin: 10,
-    borderRadius: 20,
     maxWidth: 350,
     minWidth: 225,
     alignSelf: 'center'
