@@ -51,7 +51,7 @@ export default class LoginPage extends Component {
             </View>
           </View>
           <View style={styles.centered}>
-            <ConfirmBtn onPress={() => this.login('TopicsPage')}
+            <ConfirmBtn onPress={() => this.login('')}
                         content={'Login'}/>
             <GoToBtn onPress={() => goToScreen(this.props.componentId, 'RegisterPage')}
                      content={'Don\'t have an account?\nRegister here!'}/>
@@ -61,7 +61,7 @@ export default class LoginPage extends Component {
   }
 }
 
-const styles =StyleSheet.create({
+const styles = StyleSheet.create({
   mainContainer: {
     marginTop: 30,
     margin: 10

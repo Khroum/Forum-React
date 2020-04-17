@@ -22,6 +22,9 @@ export default class Drawer extends Component {
             <GoToBtn onPress={() => this.goToScreen('TopicsPage')}
                      content={'Topics page'}
                      style={{borderWidth: 1.5, borderRadius: 20, borderColor: '#0E7DDF'}}/>
+            <GoToBtn onPress={() => this.goToScreen('LoginPage')}
+                     content={'Login page'}
+                     style={{borderWidth: 1.5, borderRadius: 20, borderColor: '#0E7DDF'}}/>
           </View>
         </View>
     );
