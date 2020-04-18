@@ -3,6 +3,7 @@ import {Text, View, StyleSheet} from 'react-native';
 import {goToScreen, hideNavbarMenu} from "../utils/navbarHelper";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {GoToBtn} from "../component/GoToBtn";
+import {LOGIN_PAGE, TOPICS_PAGE} from "../utils/constants";
 
 export default class Drawer extends Component {
 
@@ -19,10 +20,10 @@ export default class Drawer extends Component {
             <Icon style={styles.icon} name='wechat' size={125}/>
           </View>
           <View style={styles.btnContainer}>
-            <GoToBtn onPress={() => this.goToScreen('TopicsPage')}
+            <GoToBtn onPress={() => this.goToScreen(TOPICS_PAGE)}
                      content={'Topics page'}
                      style={{borderWidth: 1.5, borderRadius: 20, borderColor: '#0E7DDF'}}/>
-            <GoToBtn onPress={() => this.goToScreen('LoginPage')}
+            <GoToBtn onPress={() => this.goToScreen(LOGIN_PAGE)}
                      content={'Login page'}
                      style={{borderWidth: 1.5, borderRadius: 20, borderColor: '#0E7DDF'}}/>
           </View>

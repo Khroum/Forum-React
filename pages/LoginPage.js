@@ -2,20 +2,25 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, TextInput} from 'react-native';
 import {ConfirmBtn} from "../component/ConfirmBtn";
 import {GoToBtn} from "../component/GoToBtn";
-import {API_URL, AUTH_HEADER} from "../utils/constants";
+import {API_URL, AUTH_HEADER, REGISTER_PAGE, TOPICS_PAGE} from "../utils/constants";
 import {disableNavbarMenu, goToScreen} from "../utils/navbarHelper";
 
 export default class LoginPage extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      username: '',
+      password: ''
+    };
   }
 
   componentDidMount() {
     disableNavbarMenu(this.props.componentId);
   }
 
-  login = (username, password) => {
+  login = () => {
+    const {username, password} = this.state;
     fetch(`${API_URL}/login`, {
       method: 'POST',
       headers: {
@@ -30,11 +35,19 @@ export default class LoginPage extends Component {
       .then((response) => {
         let header = response.headers.get(AUTH_HEADER);
         console.log(header);
-        goToScreen(this.props.componentId, 'TopicsPage')
+        this.resetAuthData();
+        goToScreen(this.props.componentId, TOPICS_PAGE)
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  resetAuthData = () => {
+    this.setState({
+      'username': '',
+      'password': ''
+    });
   };
 
   render() {
@@ -43,17 +56,17 @@ export default class LoginPage extends Component {
           <View style={styles.dataContainer}>
             <View style={styles.dataWindow}>
               <Text style={styles.dataText}>Username:</Text>
-              <TextInput style={styles.inputData}/>
+              <TextInput style={styles.inputData} onChangeText={text => this.setState({username: text})}/>
             </View>
             <View style={styles.dataWindow}>
               <Text style={styles.dataText}>Password:</Text>
-              <TextInput style={styles.inputData}/>
+              <TextInput style={styles.inputData} onChangeText={text => this.setState({password: text})}/>
             </View>
           </View>
           <View style={styles.centered}>
-            <ConfirmBtn onPress={() => this.login('')}
+            <ConfirmBtn onPress={() => this.login()}
                         content={'Login'}/>
-            <GoToBtn onPress={() => goToScreen(this.props.componentId, 'RegisterPage')}
+            <GoToBtn onPress={() => goToScreen(this.props.componentId, REGISTER_PAGE)}
                      content={'Don\'t have an account?\nRegister here!'}/>
           </View>
         </View>
