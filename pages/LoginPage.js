@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, TextInput} from 'react-native';
 import {ConfirmBtn} from "../component/ConfirmBtn";
 import {GoToBtn} from "../component/GoToBtn";
 import {API_URL, AUTH_HEADER, REGISTER_PAGE, TOPICS_PAGE} from "../utils/constants";
-import {disableNavbarMenu, goToScreen} from "../utils/navbarHelper";
+import {disableNavbarMenu, goToScreen, goToScreenWithHeader} from "../utils/navbarHelper";
 
 export default class LoginPage extends Component {
 
@@ -34,9 +34,8 @@ export default class LoginPage extends Component {
     })
       .then((response) => {
         let header = response.headers.get(AUTH_HEADER);
-        console.log(header);
         this.resetAuthData();
-        goToScreen(this.props.componentId, TOPICS_PAGE)
+        goToScreenWithHeader(this.props.componentId, TOPICS_PAGE, header)
       })
       .catch((error) => {
         console.log(error);
