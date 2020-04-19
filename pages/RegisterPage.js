@@ -59,7 +59,9 @@ export default class RegisterPage extends Component {
             </View>
             <View style={styles.dataWindow}>
               <Text style={styles.dataText}>Password:</Text>
-              <TextInput style={styles.inputData} onChangeText={text => this.setState({password: text})}/>
+              <TextInput style={styles.inputData}
+                         secureTextEntry={true}
+                         onChangeText={text => this.setState({password: text})}/>
             </View>
           </View>
           <View style={styles.centered}>

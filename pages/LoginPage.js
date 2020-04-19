@@ -35,6 +35,7 @@ export default class LoginPage extends Component {
       .then((response) => {
         let header = response.headers.get(AUTH_HEADER);
         this.resetAuthData();
+        console.log('auth:', header);
         goToScreenWithHeader(this.props.componentId, TOPICS_PAGE, header)
       })
       .catch((error) => {
@@ -59,7 +60,9 @@ export default class LoginPage extends Component {
             </View>
             <View style={styles.dataWindow}>
               <Text style={styles.dataText}>Password:</Text>
-              <TextInput style={styles.inputData} onChangeText={text => this.setState({password: text})}/>
+              <TextInput style={styles.inputData}
+                         secureTextEntry={true}
+                         onChangeText={text => this.setState({password: text})}/>
             </View>
           </View>
           <View style={styles.centered}>
