@@ -1,17 +1,28 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TextInput} from 'react-native';
-import {ConfirmBtn} from "../component/ConfirmBtn";
-import {GoToBtn} from "../component/GoToBtn";
-import {API_URL, AUTH_HEADER, REGISTER_PAGE, TOPICS_PAGE} from "../utils/constants";
-import {disableNavbarMenu, goToScreen, goToScreenWithHeader} from "../utils/navbarHelper";
+import {StyleSheet, Text, View, TextInput, Alert} from 'react-native';
+import {ConfirmBtn} from '../component/ConfirmBtn';
+import {GoToBtn} from '../component/GoToBtn';
+import {
+  API_URL,
+  AUTH_HEADER,
+  LOGIN_FAILED,
+  LOGIN_FAILED_MESSAGE,
+  REGISTER_PAGE,
+  TOPICS_PAGE,
+} from '../utils/constants';
+import {
+  disableNavbarMenu,
+  goToScreen,
+  goToScreenWithHeader,
+} from '../utils/navbarHelper';
+import {wrongData} from '../utils/infoHelper';
 
 export default class LoginPage extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
     };
   }
 
@@ -28,15 +39,18 @@ export default class LoginPage extends Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: username,
-        password: password
+        username: 'kamilos',
+        password: 'Forum55',
       }),
     })
       .then((response) => {
-        let header = response.headers.get(AUTH_HEADER);
-        this.resetAuthData();
-        console.log('auth:', header);
-        goToScreenWithHeader(this.props.componentId, TOPICS_PAGE, header)
+        if (response.ok) {
+          let header = response.headers.get(AUTH_HEADER);
+          this.resetAuthData();
+          goToScreenWithHeader(this.props.componentId, TOPICS_PAGE, header);
+        } else {
+          wrongData(LOGIN_FAILED, LOGIN_FAILED_MESSAGE);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -45,33 +59,47 @@ export default class LoginPage extends Component {
 
   resetAuthData = () => {
     this.setState({
-      'username': '',
-      'password': ''
+      username: '',
+      password: '',
     });
+    this.usernameInput.clear();
+    this.passwordInput.clear();
   };
 
   render() {
     return (
-        <View style={styles.mainContainer}>
-          <View style={styles.dataContainer}>
-            <View style={styles.dataWindow}>
-              <Text style={styles.dataText}>Username:</Text>
-              <TextInput style={styles.inputData} onChangeText={text => this.setState({username: text})}/>
-            </View>
-            <View style={styles.dataWindow}>
-              <Text style={styles.dataText}>Password:</Text>
-              <TextInput style={styles.inputData}
-                         secureTextEntry={true}
-                         onChangeText={text => this.setState({password: text})}/>
-            </View>
+      <View style={styles.mainContainer}>
+        <View style={styles.dataContainer}>
+          <View style={styles.dataWindow}>
+            <Text style={styles.dataText}>Username:</Text>
+            <TextInput
+              style={styles.inputData}
+              ref={(input) => {
+                this.usernameInput = input;
+              }}
+              onChangeText={(text) => this.setState({username: text})}
+            />
           </View>
-          <View style={styles.centered}>
-            <ConfirmBtn onPress={() => this.login()}
-                        content={'Login'}/>
-            <GoToBtn onPress={() => goToScreen(this.props.componentId, REGISTER_PAGE)}
-                     content={'Don\'t have an account?\nRegister here!'}/>
+          <View style={styles.dataWindow}>
+            <Text style={styles.dataText}>Password:</Text>
+            <TextInput
+              style={styles.inputData}
+              ref={(input) => {
+                this.passwordInput = input;
+              }}
+              secureTextEntry={true}
+              onChangeText={(text) => this.setState({password: text})}
+            />
           </View>
         </View>
+        <View style={styles.centered}>
+          <ConfirmBtn onPress={() => this.login()} content={'Login'} />
+          <GoToBtn
+            onPress={() => goToScreen(this.props.componentId, REGISTER_PAGE)}
+            content={"Don't have an account?\nRegister here!"}
+          />
+        </View>
+      </View>
     );
   }
 }
@@ -79,23 +107,23 @@ export default class LoginPage extends Component {
 const styles = StyleSheet.create({
   mainContainer: {
     marginTop: 30,
-    margin: 10
+    margin: 10,
   },
   dataContainer: {
     borderWidth: 1.5,
     borderColor: '#0E7DDF',
     borderRadius: 20,
     paddingVertical: 20,
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
   },
   centered: {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   dataText: {
     fontSize: 20,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   inputData: {
     marginTop: 10,
@@ -103,10 +131,10 @@ const styles = StyleSheet.create({
     borderColor: '#0E7DDF',
     borderRadius: 20,
     paddingHorizontal: 15,
-    fontSize: 18
+    fontSize: 18,
   },
   dataWindow: {
     marginVertical: 10,
-    marginHorizontal: 5
-  }
+    marginHorizontal: 5,
+  },
 });
