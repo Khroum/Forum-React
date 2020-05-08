@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, TextInput} from 'react-native';
 import {ConfirmBtn} from "../component/ConfirmBtn";
 import {goToScreen} from "../utils/navbarHelper";
-import {API_URL, LOGIN_PAGE} from "../utils/constants";
+import {API_URL, LOGIN_PAGE, REGISTRATION_FAILED, REGISTRATION_FAILED_MESSAGE} from "../utils/constants";
+import {wrongData} from "../utils/infoHelper";
 
 export default class RegisterPage extends Component {
   constructor(props) {
@@ -28,9 +29,13 @@ export default class RegisterPage extends Component {
         email: email
       }),
     })
-        .then(() => {
-          this.resetAuthData();
-          goToScreen(this.props.componentId, LOGIN_PAGE)
+        .then((response) => {
+          if (response.ok) {
+            this.resetAuthData();
+            goToScreen(this.props.componentId, LOGIN_PAGE)
+          } else {
+            wrongData(REGISTRATION_FAILED, REGISTRATION_FAILED_MESSAGE);
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -43,6 +48,9 @@ export default class RegisterPage extends Component {
       'email': '',
       'password': ''
     });
+    this.usernameInput.clear();
+    this.emailInput.clear();
+    this.passwordInput.clear();
   };
 
   render() {
@@ -51,15 +59,20 @@ export default class RegisterPage extends Component {
           <View style={styles.dataContainer}>
             <View style={styles.dataWindow}>
               <Text style={styles.dataText}>Username:</Text>
-              <TextInput style={styles.inputData} onChangeText={text => this.setState({username: text})}/>
+              <TextInput style={styles.inputData}
+                         ref={input => { this.usernameInput = input }}
+                         onChangeText={text => this.setState({username: text})}/>
             </View>
             <View style={styles.dataWindow}>
               <Text style={styles.dataText}>Email:</Text>
-              <TextInput style={styles.inputData} onChangeText={text => this.setState({email: text})}/>
+              <TextInput style={styles.inputData}
+                         ref={input => { this.emailInput = input }}
+                         onChangeText={text => this.setState({email: text})}/>
             </View>
             <View style={styles.dataWindow}>
               <Text style={styles.dataText}>Password:</Text>
               <TextInput style={styles.inputData}
+                         ref={input => { this.passwordInput = input }}
                          secureTextEntry={true}
                          onChangeText={text => this.setState({password: text})}/>
             </View>

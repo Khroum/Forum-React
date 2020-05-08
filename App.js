@@ -6,6 +6,7 @@ import LoginPage from "./pages/LoginPage";
 import {View} from 'react-native';
 import TopicsPage from "./pages/TopicsPage";
 import RegisterPage from "./pages/RegisterPage";
+import PostsPage from "./pages/PostsPage";
 
 export const App = () => {
   return (
@@ -16,6 +17,7 @@ export const App = () => {
 Navigation.registerComponent(`Drawer`, () => Drawer);
 Navigation.registerComponent(`LoginPage`, () => LoginPage);
 Navigation.registerComponent(`TopicsPage`, () => TopicsPage);
+Navigation.registerComponent(`PostsPage`, () => PostsPage);
 Navigation.registerComponent(`RegisterPage`, () => RegisterPage);
 
 const { width } = Dimensions.get('window');

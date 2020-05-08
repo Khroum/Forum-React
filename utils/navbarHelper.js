@@ -15,7 +15,26 @@ export const goToScreen = (componentId, screenName) => {
   })
 };
 
-export const goToScreenWithHeader= (componentId, screenName, header) => {
+export const goToScreenWithProps = (componentId, screenName, header, objectId) => {
+  Navigation.push(componentId, {
+    component: {
+      name: screenName,
+      options: {
+        topBar: {
+          title: {
+            text: screenName
+          }
+        }
+      },
+      passProps: {
+        header: header,
+        objectId: objectId
+      }
+    }
+  })
+};
+
+export const goToScreenWithHeader = (componentId, screenName, header) => {
   Navigation.push(componentId, {
     component: {
       name: screenName,

@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TextInput} from 'react-native';
+import {StyleSheet, Text, View, TextInput, Alert} from 'react-native';
 import {ConfirmBtn} from "../component/ConfirmBtn";
 import {GoToBtn} from "../component/GoToBtn";
-import {API_URL, AUTH_HEADER, REGISTER_PAGE, TOPICS_PAGE} from "../utils/constants";
+import {API_URL, AUTH_HEADER, LOGIN_FAILED, LOGIN_FAILED_MESSAGE, REGISTER_PAGE, TOPICS_PAGE} from "../utils/constants";
 import {disableNavbarMenu, goToScreen, goToScreenWithHeader} from "../utils/navbarHelper";
+import {wrongData} from "../utils/infoHelper";
 
 export default class LoginPage extends Component {
 
@@ -28,19 +29,22 @@ export default class LoginPage extends Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: username,
-        password: password
+        username: 'kamilos',
+        password: 'Forum55'
       }),
     })
-      .then((response) => {
-        let header = response.headers.get(AUTH_HEADER);
-        this.resetAuthData();
-        console.log('auth:', header);
-        goToScreenWithHeader(this.props.componentId, TOPICS_PAGE, header)
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        .then((response) => {
+          if (response.ok) {
+            let header = response.headers.get(AUTH_HEADER);
+            this.resetAuthData();
+            goToScreenWithHeader(this.props.componentId, TOPICS_PAGE, header)
+          } else {
+            wrongData(LOGIN_FAILED, LOGIN_FAILED_MESSAGE);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
   };
 
   resetAuthData = () => {
@@ -48,6 +52,8 @@ export default class LoginPage extends Component {
       'username': '',
       'password': ''
     });
+    this.usernameInput.clear();
+    this.passwordInput.clear();
   };
 
   render() {
@@ -56,11 +62,14 @@ export default class LoginPage extends Component {
           <View style={styles.dataContainer}>
             <View style={styles.dataWindow}>
               <Text style={styles.dataText}>Username:</Text>
-              <TextInput style={styles.inputData} onChangeText={text => this.setState({username: text})}/>
+              <TextInput style={styles.inputData}
+                         ref={input => { this.usernameInput = input }}
+                         onChangeText={text => this.setState({username: text})}/>
             </View>
             <View style={styles.dataWindow}>
               <Text style={styles.dataText}>Password:</Text>
               <TextInput style={styles.inputData}
+                         ref={input => { this.passwordInput = input }}
                          secureTextEntry={true}
                          onChangeText={text => this.setState({password: text})}/>
             </View>
