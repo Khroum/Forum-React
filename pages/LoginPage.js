@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TextInput, Alert} from 'react-native';
+import {StyleSheet, Text, View, TextInput} from 'react-native';
 import {ConfirmBtn} from '../component/ConfirmBtn';
 import {GoToBtn} from '../component/GoToBtn';
 import {

@@ -12,6 +12,7 @@ import {API_URL, POSTS_PAGE} from '../utils/constants';
 import {formatToDateTime} from '../utils/dateFormatter';
 import {PostOverview} from '../component/PostOverview';
 import {goToScreenWithProps} from '../utils/navbarHelper';
+import EmptyContent from "../component/EmptyContent";
 
 export default class PostsPage extends Component {
   constructor(props) {
@@ -43,9 +44,9 @@ export default class PostsPage extends Component {
       .then((response) => response.json())
       .then((json) => {
         this.setState({
-          isFetching: false,
           posts: json,
           header: header,
+          isFetching: false
         });
         console.log(this.state.posts);
       })
@@ -64,6 +65,7 @@ export default class PostsPage extends Component {
     } else {
       return (
         <View>
+          <EmptyContent/>
           <ScrollView
             refreshControl={
               <RefreshControl
