@@ -8,34 +8,34 @@ import {
   Text,
 } from 'react-native';
 import {Loader} from '../component/Loader';
-import {API_URL, POSTS_PAGE, TOPICS_PAGE} from '../utils/constants';
-import {TopicOverview} from '../component/TopicOverview';
+import {API_URL, POSTS_PAGE} from '../utils/constants';
 import {formatToDateTime} from '../utils/dateFormatter';
-import {goToScreenWithHeader, goToScreenWithProps} from '../utils/navbarHelper';
+import {PostOverview} from '../component/PostOverview';
+import {goToScreenWithProps} from '../utils/navbarHelper';
 
-export default class TopicsPage extends Component {
+export default class PostsPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isFetching: true,
-      topics: [],
+      posts: [],
       header: '',
     };
   }
 
   componentDidMount() {
-    this.getTopics();
+    this.getPosts();
   }
 
   onRefresh() {
     this.setState({isFetching: true}, () => {
-      this.getTopics();
+      this.getPosts();
     });
   }
 
-  getTopics = () => {
-    const {header} = this.props;
-    fetch(`${API_URL}/topic/`, {
+  getPosts = () => {
+    const {header, objectId} = this.props;
+    fetch(`${API_URL}/post/topic/${objectId}`, {
       headers: {
         Authorization: `${header}`,
       },
@@ -44,22 +44,18 @@ export default class TopicsPage extends Component {
       .then((json) => {
         this.setState({
           isFetching: false,
-          topics: json,
+          posts: json,
           header: header,
         });
+        console.log(this.state.posts);
       })
       .catch((error) => {
         console.error(error);
       });
   };
 
-  goToPosts = (topicId) => {
-    goToScreenWithProps(
-      this.props.componentId,
-      POSTS_PAGE,
-      this.state.header,
-      topicId,
-    );
+  goToComments = (postId) => {
+    //goToScreenWithProps(this.props.componentId, POSTS_PAGE, this.state.header, postId)
   };
 
   render() {
@@ -76,12 +72,12 @@ export default class TopicsPage extends Component {
               />
             }>
             <FlatList
-              data={this.state.topics}
+              data={this.state.posts}
               renderItem={({item}) => (
-                <TopicOverview
-                  click={() => this.goToPosts(item.topicId)}
-                  name={item.name}
-                  description={item.description}
+                <PostOverview
+                  click={() => this.goToComments(item.postId)}
+                  content={item.content}
+                  author={item.authorLogin}
                   date={formatToDateTime(item.createdOn)}
                 />
               )}

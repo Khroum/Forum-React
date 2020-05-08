@@ -1,4 +1,4 @@
-import {Navigation} from "react-native-navigation";
+import {Navigation} from 'react-native-navigation';
 
 export const goToScreen = (componentId, screenName) => {
   Navigation.push(componentId, {
@@ -7,39 +7,63 @@ export const goToScreen = (componentId, screenName) => {
       options: {
         topBar: {
           title: {
-            text: screenName
-          }
-        }
-      }
-    }
-  })
+            text: screenName,
+          },
+        },
+      },
+    },
+  });
 };
 
-export const goToScreenWithHeader= (componentId, screenName, header) => {
+export const goToScreenWithProps = (
+  componentId,
+  screenName,
+  header,
+  objectId,
+) => {
   Navigation.push(componentId, {
     component: {
       name: screenName,
       options: {
         topBar: {
           title: {
-            text: screenName
-          }
-        }
+            text: screenName,
+          },
+        },
       },
       passProps: {
-        header: header
-      }
-    }
-  })
+        header: header,
+        objectId: objectId,
+      },
+    },
+  });
+};
+
+export const goToScreenWithHeader = (componentId, screenName, header) => {
+  Navigation.push(componentId, {
+    component: {
+      name: screenName,
+      options: {
+        topBar: {
+          title: {
+            text: screenName,
+          },
+        },
+      },
+      passProps: {
+        header: header,
+      },
+    },
+  });
 };
 
 export const hideNavbarMenu = (componentId) => {
   Navigation.mergeOptions(componentId, {
     sideMenu: {
       left: {
-        visible: false
-      }
-    }
+        visible: false,
+      },
+    },
   });
 };
 
@@ -47,8 +71,8 @@ export const disableNavbarMenu = (componentId) => {
   Navigation.mergeOptions(componentId, {
     sideMenu: {
       left: {
-        enabled: false
-      }
-    }
+        enabled: false,
+      },
+    },
   });
 };
