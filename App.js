@@ -1,24 +1,24 @@
 import React from 'react';
-import {Navigation} from "react-native-navigation";
-import Drawer from "./containers/Drawer";
-import { Dimensions } from 'react-native';
-import LoginPage from "./pages/LoginPage";
+import {Navigation} from 'react-native-navigation';
+import Drawer from './containers/Drawer';
+import {Dimensions} from 'react-native';
+import LoginPage from './pages/LoginPage';
 import {View} from 'react-native';
-import TopicsPage from "./pages/TopicsPage";
-import RegisterPage from "./pages/RegisterPage";
+import TopicsPage from './pages/TopicsPage';
+import RegisterPage from './pages/RegisterPage';
+import PostsPage from './pages/PostsPage';
 
 export const App = () => {
-  return (
-      <View />
-  )
+  return <View />;
 };
 
 Navigation.registerComponent(`Drawer`, () => Drawer);
 Navigation.registerComponent(`LoginPage`, () => LoginPage);
 Navigation.registerComponent(`TopicsPage`, () => TopicsPage);
+Navigation.registerComponent(`PostsPage`, () => PostsPage);
 Navigation.registerComponent(`RegisterPage`, () => RegisterPage);
 
-const { width } = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 Navigation.events().registerAppLaunchedListener(() => {
   Navigation.setDefaultOptions({
     topBar: {
@@ -29,18 +29,18 @@ Navigation.events().registerAppLaunchedListener(() => {
       borderHeight: 1,
       buttonColor: 'white',
       backButton: {
-        color: 'white'
+        color: 'white',
       },
       title: {
         color: 'white',
         alignment: 'center',
         text: 'Talkerr',
-        fontSize: 28
+        fontSize: 28,
       },
       background: {
-        color: '#0E7DDF'
-      }
-    }
+        color: '#0E7DDF',
+      },
+    },
   });
   Navigation.setRoot({
     root: {
@@ -49,8 +49,8 @@ Navigation.events().registerAppLaunchedListener(() => {
           component: {
             id: 'drawerId',
             name: 'Drawer',
-            fixedWidth: width
-          }
+            fixedWidth: width,
+          },
         },
         center: {
           stack: {
@@ -59,12 +59,12 @@ Navigation.events().registerAppLaunchedListener(() => {
               {
                 component: {
                   name: 'LoginPage',
-                }
+                },
               },
-            ]
-          }
-        }
+            ],
+          },
+        },
       },
-    }
+    },
   });
 });
