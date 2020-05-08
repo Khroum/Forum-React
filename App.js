@@ -26,7 +26,7 @@ Navigation.events().registerAppLaunchedListener(() => {
       visible: true,
       drawBehind: false,
       animate: false,
-      borderHeight: 1,
+      //borderHeight: 1,
       buttonColor: 'white',
       backButton: {
         color: 'white',

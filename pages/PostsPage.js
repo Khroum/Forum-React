@@ -8,11 +8,12 @@ import {
   Text,
 } from 'react-native';
 import {Loader} from '../component/Loader';
-import {API_URL, POSTS_PAGE} from '../utils/constants';
+import {API_URL, POSTS_PAGE, TOPICS_PAGE} from '../utils/constants';
 import {formatToDateTime} from '../utils/dateFormatter';
 import {PostOverview} from '../component/PostOverview';
 import {goToScreenWithProps} from '../utils/navbarHelper';
 import EmptyContent from "../component/EmptyContent";
+import {AddNewFooter} from "../component/AddNewFooter";
 
 export default class PostsPage extends Component {
   constructor(props) {
@@ -64,7 +65,7 @@ export default class PostsPage extends Component {
       return <Loader />;
     } else {
       return (
-        <View>
+        <View style={styles.mainContainer}>
           <EmptyContent/>
           <ScrollView
             refreshControl={
@@ -73,6 +74,9 @@ export default class PostsPage extends Component {
                 onRefresh={() => this.onRefresh()}
               />
             }>
+            <View style={styles.footer}>
+              <AddNewFooter onPress={() => this.goToScreen(TOPICS_PAGE)} content={'Add a new post!'}/>
+            </View>
             <FlatList
               data={this.state.posts}
               renderItem={({item}) => (
@@ -84,6 +88,7 @@ export default class PostsPage extends Component {
                 />
               )}
               keyExtractor={(item, index) => index.toString()}
+              style={styles.listContainer}
             />
           </ScrollView>
         </View>
@@ -92,4 +97,16 @@ export default class PostsPage extends Component {
   }
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  mainContainer: {
+    margin: 0
+  },
+  listContainer: {
+    marginBottom: 20
+  },
+  footer: {
+    marginBottom: 5,
+    backgroundColor: '#0E7DDF',
+    borderColor: 'transparent'
+  }
+});
