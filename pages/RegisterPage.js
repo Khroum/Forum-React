@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TextInput} from 'react-native';
 import {ConfirmBtn} from "../component/ConfirmBtn";
-import {goToScreen} from "../utils/navbarHelper";
+import {disableNavbarMenu, goToScreen} from "../utils/navbarHelper";
 import {
   API_URL,
   LOGIN_PAGE,
@@ -19,6 +19,10 @@ export default class RegisterPage extends Component {
       email: '',
       password: ''
     };
+  }
+
+  componentDidMount() {
+    disableNavbarMenu(this.props.componentId);
   }
 
   register = () => {
