@@ -6,7 +6,7 @@ import {
   API_URL,
   AUTH_HEADER,
   LOGIN_FAILED,
-  LOGIN_FAILED_MESSAGE,
+  LOGIN_FAILED_MESSAGE, OPERATION_FAILED, OPERATION_FAILED_MESSAGE,
   REGISTER_PAGE,
   TOPICS_PAGE,
 } from '../utils/constants';
@@ -15,7 +15,7 @@ import {
   goToScreen,
   goToScreenWithHeader,
 } from '../utils/navbarHelper';
-import {wrongData} from '../utils/infoHelper';
+import {alert} from '../utils/infoHelper';
 
 export default class LoginPage extends Component {
   constructor(props) {
@@ -39,8 +39,8 @@ export default class LoginPage extends Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: 'kamilos',
-        password: 'Forum55',
+        username: '',
+        password: '',
       }),
     })
       .then((response) => {
@@ -49,12 +49,19 @@ export default class LoginPage extends Component {
           this.resetAuthData();
           goToScreenWithHeader(this.props.componentId, TOPICS_PAGE, header);
         } else {
-          wrongData(LOGIN_FAILED, LOGIN_FAILED_MESSAGE);
+          this.wrongData(response);
         }
       })
       .catch((error) => {
+        alert(OPERATION_FAILED, OPERATION_FAILED_MESSAGE);
         console.log(error);
       });
+  };
+
+  wrongData = (response) => {
+    response.status === 401 ?
+        alert(LOGIN_FAILED, LOGIN_FAILED_MESSAGE) :
+        alert(OPERATION_FAILED, OPERATION_FAILED_MESSAGE);
   };
 
   resetAuthData = () => {

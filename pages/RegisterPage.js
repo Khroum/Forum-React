@@ -2,7 +2,14 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, TextInput} from 'react-native';
 import {ConfirmBtn} from "../component/ConfirmBtn";
 import {goToScreen} from "../utils/navbarHelper";
-import {API_URL, LOGIN_PAGE} from "../utils/constants";
+import {
+  API_URL,
+  LOGIN_PAGE,
+  OPERATION_FAILED,
+  OPERATION_FAILED_MESSAGE,
+  REGISTRATION_FAILED_MESSAGE
+} from "../utils/constants";
+import {alert} from "../utils/infoHelper";
 
 export default class RegisterPage extends Component {
   constructor(props) {
@@ -28,11 +35,16 @@ export default class RegisterPage extends Component {
         email: email
       }),
     })
-        .then(() => {
-          this.resetAuthData();
-          goToScreen(this.props.componentId, LOGIN_PAGE)
+        .then((response) => {
+          if (response.ok) {
+            this.resetAuthData();
+            goToScreen(this.props.componentId, LOGIN_PAGE)
+          } else {
+            alert(OPERATION_FAILED, REGISTRATION_FAILED_MESSAGE);
+          }
         })
         .catch((error) => {
+          alert(OPERATION_FAILED, OPERATION_FAILED_MESSAGE);
           console.log(error);
         });
   };
