@@ -16,8 +16,10 @@ import {
   goToScreenWithHeader,
 } from '../utils/navbarHelper';
 import {alert} from '../utils/infoHelper';
+import {connect} from 'react-redux';
+import {authSuccess} from "../actions/authenticationActions";
 
-export default class LoginPage extends Component {
+class LoginPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,13 +41,14 @@ export default class LoginPage extends Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: '',
-        password: '',
+        username: username,
+        password: password,
       }),
     })
       .then((response) => {
         if (response.ok) {
           let header = response.headers.get(AUTH_HEADER);
+          this.props.authSuccess(header);
           this.resetAuthData();
           goToScreenWithHeader(this.props.componentId, TOPICS_PAGE, header);
         } else {
@@ -110,6 +113,15 @@ export default class LoginPage extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    token: state.token
+  };
+};
+const mapDispatchToProps = { authSuccess };
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
 
 const styles = StyleSheet.create({
   mainContainer: {

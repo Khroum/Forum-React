@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
-import {goToScreen, hideNavbarMenu} from "../utils/navbarHelper";
+import {goToScreenWithHeader, hideNavbarMenu} from "../utils/navbarHelper";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {GoToBtn} from "../component/GoToBtn";
 import {LOGIN_PAGE, TOPICS_PAGE} from "../utils/constants";
+import {connect} from 'react-redux';
 
-export default class Drawer extends Component {
+class Drawer extends Component {
 
   goToScreen = (screenName) => {
     hideNavbarMenu('drawerId');
-    goToScreen('MAIN_STACK', screenName);
+    goToScreenWithHeader('MAIN_STACK', screenName, this.props.token);
   };
 
   render() {
@@ -31,6 +32,12 @@ export default class Drawer extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ authenticationReducer: { token } }) => {
+  return { token };
+};
+
+export default connect(mapStateToProps)(Drawer);
 
 const styles = StyleSheet.create({
   drawerContainer: {

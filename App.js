@@ -7,13 +7,15 @@ import {View} from 'react-native';
 import TopicsPage from './pages/TopicsPage';
 import RegisterPage from './pages/RegisterPage';
 import PostsPage from './pages/PostsPage';
+import {Provider} from 'react-redux';
+import {store} from "./store/store";
 
 export const App = () => {
   return <View />;
 };
 
-Navigation.registerComponent(`Drawer`, () => Drawer);
-Navigation.registerComponent(`LoginPage`, () => LoginPage);
+Navigation.registerComponentWithRedux(`Drawer`, () => Drawer, Provider, store);
+Navigation.registerComponentWithRedux(`LoginPage`, () => LoginPage, Provider, store);
 Navigation.registerComponent(`TopicsPage`, () => TopicsPage);
 Navigation.registerComponent(`PostsPage`, () => PostsPage);
 Navigation.registerComponent(`RegisterPage`, () => RegisterPage);
