@@ -12,8 +12,8 @@ import {API_URL, POSTS_PAGE, TOPICS_PAGE} from '../utils/constants';
 import {formatToDateTime} from '../utils/dateFormatter';
 import {PostOverview} from '../component/PostOverview';
 import {goToScreenWithProps} from '../utils/navbarHelper';
-import EmptyContent from "../component/EmptyContent";
-import {AddNewFooter} from "../component/AddNewFooter";
+import EmptyContent from '../component/EmptyContent';
+import {AddNewFooter} from '../component/AddNewFooter';
 
 export default class PostsPage extends Component {
   constructor(props) {
@@ -47,7 +47,7 @@ export default class PostsPage extends Component {
         this.setState({
           posts: json,
           header: header,
-          isFetching: false
+          isFetching: false,
         });
         console.log(this.state.posts);
       })
@@ -66,7 +66,7 @@ export default class PostsPage extends Component {
     } else {
       return (
         <View style={styles.mainContainer}>
-          <EmptyContent/>
+          <EmptyContent />
           <ScrollView
             refreshControl={
               <RefreshControl
@@ -75,7 +75,10 @@ export default class PostsPage extends Component {
               />
             }>
             <View style={styles.footer}>
-              <AddNewFooter onPress={() => this.goToScreen(TOPICS_PAGE)} content={'Add a new post!'}/>
+              <AddNewFooter
+                onPress={() => this.goToScreen(TOPICS_PAGE)}
+                content={'Add a new post!'}
+              />
             </View>
             <FlatList
               data={this.state.posts}
@@ -99,14 +102,14 @@ export default class PostsPage extends Component {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    margin: 0
+    margin: 0,
   },
   listContainer: {
-    marginBottom: 20
+    marginBottom: 20,
   },
   footer: {
     marginBottom: 5,
     backgroundColor: '#0E7DDF',
-    borderColor: 'transparent'
-  }
+    borderColor: 'transparent',
+  },
 });

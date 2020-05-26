@@ -76,3 +76,14 @@ export const disableNavbarMenu = (componentId) => {
     },
   });
 };
+
+export const disableBackButton = (componentId) => {
+  Navigation.mergeOptions(componentId, {
+    topBar: {
+      backButton: {
+        showTitle: false,
+        visible: false,
+      },
+    },
+  });
+};
