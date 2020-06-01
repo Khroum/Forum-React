@@ -4,8 +4,7 @@ import {
   ScrollView,
   StyleSheet,
   FlatList,
-  RefreshControl,
-  Text,
+  RefreshControl
 } from 'react-native';
 import {Loader} from '../component/Loader';
 import {ADD_POST_PAGE, API_URL, POSTS_PAGE, TOPICS_PAGE} from '../utils/constants';
