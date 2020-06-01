@@ -11,6 +11,7 @@ import {
   TOPICS_PAGE,
 } from '../utils/constants';
 import {
+  disableBackButton,
   disableNavbarMenu,
   goToScreen,
   goToScreenWithHeader,
@@ -30,6 +31,7 @@ class LoginPage extends Component {
 
   componentDidMount() {
     disableNavbarMenu(this.props.componentId);
+    disableBackButton(this.props.componentId);
   }
 
   login = () => {
@@ -41,8 +43,8 @@ class LoginPage extends Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: username,
-        password: password,
+        username: 'Andrew1',
+        password: 'Forum55',
       }),
     })
       .then((response) => {

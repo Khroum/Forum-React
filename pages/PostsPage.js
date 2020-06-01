@@ -8,12 +8,12 @@ import {
   Text,
 } from 'react-native';
 import {Loader} from '../component/Loader';
-import {API_URL, POSTS_PAGE, TOPICS_PAGE} from '../utils/constants';
+import {ADD_POST_PAGE, API_URL, POSTS_PAGE, TOPICS_PAGE} from '../utils/constants';
 import {formatToDateTime} from '../utils/dateFormatter';
 import {PostOverview} from '../component/PostOverview';
-import {goToScreenWithProps} from '../utils/navbarHelper';
 import EmptyContent from "../component/EmptyContent";
 import {AddNewFooter} from "../component/AddNewFooter";
+import {goToScreenWithProps} from "../utils/navbarHelper";
 
 export default class PostsPage extends Component {
   constructor(props) {
@@ -22,6 +22,7 @@ export default class PostsPage extends Component {
       isFetching: true,
       posts: [],
       header: '',
+      topicId: null
     };
   }
 
@@ -47,6 +48,7 @@ export default class PostsPage extends Component {
         this.setState({
           posts: json,
           header: header,
+          topicId: objectId,
           isFetching: false
         });
         console.log(this.state.posts);
@@ -54,10 +56,6 @@ export default class PostsPage extends Component {
       .catch((error) => {
         console.error(error);
       });
-  };
-
-  goToComments = (postId) => {
-    //goToScreenWithProps(this.props.componentId, POSTS_PAGE, this.state.header, postId)
   };
 
   render() {
@@ -75,7 +73,8 @@ export default class PostsPage extends Component {
               />
             }>
             <View style={styles.footer}>
-              <AddNewFooter onPress={() => this.goToScreen(TOPICS_PAGE)} content={'Add a new post!'}/>
+              <AddNewFooter onPress={() => goToScreenWithProps(this.props.componentId, ADD_POST_PAGE, this.state.header, this.state.topicId)}
+                            content={'Add a new post'}/>
             </View>
             <FlatList
               data={this.state.posts}

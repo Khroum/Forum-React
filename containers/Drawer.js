@@ -5,12 +5,18 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {GoToBtn} from "../component/GoToBtn";
 import {LOGIN_PAGE, TOPICS_PAGE} from "../utils/constants";
 import {connect} from 'react-redux';
+import {Navigation} from "react-native-navigation";
 
 class Drawer extends Component {
 
   goToScreen = (screenName) => {
     hideNavbarMenu('drawerId');
     goToScreenWithHeader('MAIN_STACK', screenName, this.props.token);
+  };
+
+  logout = () => {
+    hideNavbarMenu('drawerId');
+    Navigation.popToRoot('MAIN_STACK', {})
   };
 
   render() {
@@ -24,7 +30,7 @@ class Drawer extends Component {
             <GoToBtn onPress={() => this.goToScreen(TOPICS_PAGE)}
                      content={'Topics page'}
                      style={{borderWidth: 1.5, borderRadius: 20, borderColor: '#0E7DDF'}}/>
-            <GoToBtn onPress={() => this.goToScreen(LOGIN_PAGE)}
+            <GoToBtn onPress={() => this.logout(LOGIN_PAGE)}
                      content={'Logout'}
                      style={{borderWidth: 1.5, borderRadius: 20, borderColor: '#0E7DDF'}}/>
           </View>
