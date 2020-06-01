@@ -11,7 +11,7 @@ import {Loader} from '../component/Loader';
 import {API_URL, POSTS_PAGE, TOPICS_PAGE} from '../utils/constants';
 import {TopicOverview} from '../component/TopicOverview';
 import {formatToDateTime} from '../utils/dateFormatter';
-import {goToScreenWithHeader, goToScreenWithProps} from '../utils/navbarHelper';
+import {goToScreenWithProps} from '../utils/navbarHelper';
 
 export default class TopicsPage extends Component {
   constructor(props) {

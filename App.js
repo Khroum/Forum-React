@@ -8,17 +8,24 @@ import TopicsPage from './pages/TopicsPage';
 import RegisterPage from './pages/RegisterPage';
 import PostsPage from './pages/PostsPage';
 import {Provider} from 'react-redux';
-import {store} from "./store/store";
+import {store} from './store/store';
+import AddPostPage from './pages/AddPostPage';
 
 export const App = () => {
   return <View />;
 };
 
 Navigation.registerComponentWithRedux(`Drawer`, () => Drawer, Provider, store);
-Navigation.registerComponentWithRedux(`LoginPage`, () => LoginPage, Provider, store);
+Navigation.registerComponentWithRedux(
+  `LoginPage`,
+  () => LoginPage,
+  Provider,
+  store,
+);
 Navigation.registerComponent(`TopicsPage`, () => TopicsPage);
 Navigation.registerComponent(`PostsPage`, () => PostsPage);
 Navigation.registerComponent(`RegisterPage`, () => RegisterPage);
+Navigation.registerComponent(`AddPostPage`, () => AddPostPage);
 
 const {width} = Dimensions.get('window');
 Navigation.events().registerAppLaunchedListener(() => {
