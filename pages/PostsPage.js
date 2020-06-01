@@ -64,7 +64,7 @@ export default class PostsPage extends Component {
     } else {
       return (
         <View style={styles.mainContainer}>
-          <EmptyContent/>
+          <EmptyContent />
           <ScrollView
             refreshControl={
               <RefreshControl

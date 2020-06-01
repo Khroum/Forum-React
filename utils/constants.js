@@ -9,7 +9,8 @@ export const SPACE = ' ';
 export const DOT = '.';
 export const TIME_DELIMITER = 'T';
 export const LOGIN_FAILED = 'Invalid username or password';
-export const LOGIN_FAILED_MESSAGE = 'Unfortunately, we can not log you in. Try again with other username or password';
+export const LOGIN_FAILED_MESSAGE =
+  'Unfortunately, we can not log you in. Try again with other username or password';
 export const OPERATION_FAILED = 'Something went wrong';
 export const OPERATION_FAILED_MESSAGE = 'Try again';
 export const REGISTRATION_FAILED_MESSAGE =

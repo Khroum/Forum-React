@@ -6,7 +6,9 @@ import {
   API_URL,
   AUTH_HEADER,
   LOGIN_FAILED,
-  LOGIN_FAILED_MESSAGE, OPERATION_FAILED, OPERATION_FAILED_MESSAGE,
+  LOGIN_FAILED_MESSAGE,
+  OPERATION_FAILED,
+  OPERATION_FAILED_MESSAGE,
   REGISTER_PAGE,
   TOPICS_PAGE,
 } from '../utils/constants';
@@ -18,7 +20,7 @@ import {
 } from '../utils/navbarHelper';
 import {alert} from '../utils/infoHelper';
 import {connect} from 'react-redux';
-import {authSuccess} from "../actions/authenticationActions";
+import {authSuccess} from '../actions/authenticationActions';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -64,9 +66,9 @@ class LoginPage extends Component {
   };
 
   wrongData = (response) => {
-    response.status === 401 ?
-        alert(LOGIN_FAILED, LOGIN_FAILED_MESSAGE) :
-        alert(OPERATION_FAILED, OPERATION_FAILED_MESSAGE);
+    response.status === 401
+      ? alert(LOGIN_FAILED, LOGIN_FAILED_MESSAGE)
+      : alert(OPERATION_FAILED, OPERATION_FAILED_MESSAGE);
   };
 
   resetAuthData = () => {
@@ -118,10 +120,10 @@ class LoginPage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    token: state.token
+    token: state.token,
   };
 };
-const mapDispatchToProps = { authSuccess };
+const mapDispatchToProps = {authSuccess};
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
 
