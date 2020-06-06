@@ -45,8 +45,8 @@ class LoginPage extends Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: 'Andrew1',
-        password: 'Forum55',
+        username: ,
+        password: ,
       }),
     })
       .then((response) => {
@@ -110,7 +110,7 @@ class LoginPage extends Component {
           <ConfirmBtn onPress={() => this.login()} content={'Login'} />
           <GoToBtn
             onPress={() => goToScreen(this.props.componentId, REGISTER_PAGE)}
-            content={"Don't have an account?\nRegister here!"}
+            content={"Don't have an account?\nRegister heress!"}
           />
         </View>
       </View>

@@ -7,12 +7,12 @@ import {
   RefreshControl
 } from 'react-native';
 import {Loader} from '../component/Loader';
-import {ADD_POST_PAGE, API_URL, POSTS_PAGE, TOPICS_PAGE} from '../utils/constants';
+import {ADD_POST_PAGE, API_URL, COMMENTS_PAGE, POSTS_PAGE, TOPICS_PAGE} from '../utils/constants';
 import {formatToDateTime} from '../utils/dateFormatter';
 import {PostOverview} from '../component/PostOverview';
 import EmptyContent from "../component/EmptyContent";
 import {AddNewFooter} from "../component/AddNewFooter";
-import {goToScreenWithProps} from "../utils/navbarHelper";
+import {goToScreenWithObject, goToScreenWithProps} from "../utils/navbarHelper";
 
 export default class PostsPage extends Component {
   constructor(props) {
@@ -57,6 +57,15 @@ export default class PostsPage extends Component {
       });
   };
 
+  goToComments = (item) => {
+    goToScreenWithObject(
+        this.props.componentId,
+        COMMENTS_PAGE,
+        this.state.header,
+        item
+    );
+  };
+
   render() {
     if (this.state.isFetching === true) {
       return <Loader />;
@@ -79,7 +88,7 @@ export default class PostsPage extends Component {
               data={this.state.posts}
               renderItem={({item}) => (
                 <PostOverview
-                  click={() => this.goToComments(item.postId)}
+                  click={() => this.goToComments(item)}
                   content={item.content}
                   author={item.authorLogin}
                   date={formatToDateTime(item.createdOn)}

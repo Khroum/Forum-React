@@ -14,15 +14,12 @@ export const AddNewFooter = ({onPress, content}) => {
 
 const styles = StyleSheet.create({
   footer: {
-    margin: 10,
-    borderWidth: 1.5,
-    borderColor: '#0E7DDF',
-    borderRadius: 20
+    backgroundColor: '#0E7DDF'
   },
   footerText: {
     textAlign: 'center',
     color: 'white',
-    fontSize: 22
+    fontSize: 20
   },
   btn: {
     alignItems: 'center',
@@ -35,7 +32,7 @@ const styles = StyleSheet.create({
   },
   btnText: {
     color: 'white',
-    fontSize: 28,
+    fontSize: 24,
     fontFamily: 'OpenSans-Regular',
     paddingHorizontal: 50,
     paddingVertical: 10

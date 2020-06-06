@@ -2,15 +2,15 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, TextInput} from 'react-native';
 import {ConfirmBtn} from "../component/ConfirmBtn";
 import {
-  API_URL,
+  API_URL, COMMENT_ADDED, COMMENT_ADDED_MESSAGE, COMMENTS_PAGE,
   OPERATION_FAILED,
   OPERATION_FAILED_MESSAGE, POST_ADDED, POST_ADDED_MESSAGE,
   POSTS_PAGE
 } from "../utils/constants";
-import {goToScreenWithProps} from "../utils/navbarHelper";
+import {goToScreenWithObject, goToScreenWithProps} from "../utils/navbarHelper";
 import {alert} from "../utils/infoHelper";
 
-export default class AddPostPage extends Component {
+export default class AddCommentPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,10 +18,11 @@ export default class AddPostPage extends Component {
     };
   }
 
-  addPost = () => {
+  addComment = () => {
     const {content} = this.state;
-    const {header, objectId} = this.props;
-    fetch(`${API_URL}/topic/post/`, {
+    const {header, object} = this.props;
+    console.log('add comment: ', object);
+    fetch(`${API_URL}/post/comment/`, {
       method: 'POST',
       headers: {
         Authorization: `${header}`,
@@ -30,13 +31,13 @@ export default class AddPostPage extends Component {
       },
       body: JSON.stringify({
         content: content,
-        topicId: objectId,
+        postId: object.postId,
       }),
     })
         .then((response) => {
           if (response.ok) {
-            alert(POST_ADDED, POST_ADDED_MESSAGE);
-            this.returnToPosts();
+            alert(COMMENT_ADDED, COMMENT_ADDED_MESSAGE);
+            this.returnToComments();
           } else {
             console.log(response);
             alert(OPERATION_FAILED, OPERATION_FAILED_MESSAGE);
@@ -48,12 +49,13 @@ export default class AddPostPage extends Component {
         });
   };
 
-  returnToPosts = () => {
-    goToScreenWithProps(
+  returnToComments = () => {
+    console.log('after adding comment goind to comment page for post: ', this.props.object);
+    goToScreenWithObject(
         this.props.componentId,
-        POSTS_PAGE,
+        COMMENTS_PAGE,
         this.props.header,
-        this.props.objectId,
+        this.props.object,
     );
   };
 
@@ -67,8 +69,8 @@ export default class AddPostPage extends Component {
             </View>
           </View>
           <View style={styles.centered}>
-            <ConfirmBtn onPress={() => this.addPost()}
-                        content={'Add'}/>
+            <ConfirmBtn onPress={() => this.addComment()}
+                        content={'Add a comment'}/>
           </View>
         </View>
     )

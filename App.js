@@ -10,6 +10,8 @@ import PostsPage from './pages/PostsPage';
 import {Provider} from 'react-redux';
 import {store} from "./store/store";
 import AddPostPage from "./pages/AddPostPage";
+import CommentsPage from "./pages/CommentsPage";
+import AddCommentPage from "./pages/AddCommentPage";
 
 export const App = () => {
   return <View />;
@@ -21,6 +23,8 @@ Navigation.registerComponent(`TopicsPage`, () => TopicsPage);
 Navigation.registerComponent(`PostsPage`, () => PostsPage);
 Navigation.registerComponent(`RegisterPage`, () => RegisterPage);
 Navigation.registerComponent(`AddPostPage`, () => AddPostPage);
+Navigation.registerComponent(`CommentsPage`, () => CommentsPage);
+Navigation.registerComponent(`AddCommentsPage`, () => AddCommentPage);
 
 const {width} = Dimensions.get('window');
 Navigation.events().registerAppLaunchedListener(() => {
