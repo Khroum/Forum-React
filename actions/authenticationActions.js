@@ -1,17 +1,17 @@
-import {AUTH_FAILURE, AUTH_SUCCESS} from "../reducers/authenticationReducer";
+import {AUTH_FAILURE, AUTH_SUCCESS} from '../reducers/authenticationReducer';
 
 export const authSuccess = (token) => {
   return {
     type: AUTH_SUCCESS,
     payload: {
-      token
-    }
+      token,
+    },
   };
 };
 
 const authFailure = () => {
   return {
-    type: AUTH_FAILURE
+    type: AUTH_FAILURE,
   };
 };
 
