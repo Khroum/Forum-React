@@ -7,6 +7,7 @@ export const LOGIN_PAGE = 'LoginPage';
 export const ADD_POST_PAGE = 'AddPostPage';
 export const COMMENTS_PAGE = 'CommentsPage';
 export const ADD_COMMENTS_PAGE = 'AddCommentsPage';
+export const USER_PROFILE = 'UserProfile';
 export const SPACE = ' ';
 export const DOT = '.';
 export const TIME_DELIMITER = 'T';
